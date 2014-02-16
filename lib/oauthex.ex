@@ -32,20 +32,12 @@ defmodule Oauthex do
     {token(params), token_secret(params)}
   end
 
-  def consumer_to_tuple(consumer) do
-    {consumer.key, consumer.secret, consumer.hash}
-  end
-
   def post(url, params, consumer) do
-    assert_get :oauth.post url, params, consumer_to_tuple(consumer)
+    assert_get :oauth.post(url, params, consumer_to_tuple(consumer))
   end
 
-  def post(url, params, consumer, reqinfo) do
-    assert_get :oauth.post(
-      url, params, consumer_to_tuple(consumer),
-      reqinfo.token, reqinfo.secret, 
-      [{:sync, :false}, {:stream, :self}]
-    )
+  def post(url, params, consumer, reqinfo, http_options) do
+    assert_get :oauth.post(url, params, consumer_to_tuple(consumer), reqinfo.token, reqinfo.secret, http_options)
   end
 
   def get(url, consumer) do
@@ -60,6 +52,10 @@ defmodule Oauthex do
     assert_get :oauth.get(
       url, params, consumer_to_tuple(consumer), reqinfo.token, reqinfo.secret
     )
+  end
+  
+  defp consumer_to_tuple(consumer) do
+    {consumer.key, consumer.secret, consumer.hash}
   end
 
   defp assert_get(result) do

@@ -1,6 +1,9 @@
 # Oauthex
 A wrapper around [erlang-oauth](https://github.com/tim/erlang-oauth) for [elixir](http://elixir-lang.org/).
 
+# Streaming
+http_options `[{:sync, :false}, {:stream, :self}]`
+
 # Example
 See `bin/twitter.mxs` for a quick example. To use this script:
 
@@ -17,4 +20,3 @@ Trying the *track* in the twitter streaming api:
 
 # License
 This software is under the Apache 2 License. See the **LICENSE** file for more details.
-
